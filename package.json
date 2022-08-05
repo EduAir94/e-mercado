@@ -1,0 +1,19 @@
+{
+  "name": "e-mercado",
+  "version": "1.0.0",
+  "description": "Proyecto Jovenes a Programar",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eduair94/eduair94.github.io"
+  },
+  "author": "Eduardo Airaudo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/eduair94/eduair94.github.io/issues"
+  },
+  "homepage": "https://github.com/eduair94/eduair94.github.io#readme"
+}
