@@ -47,34 +47,11 @@ document.addEventListener("DOMContentLoaded", function () {
       pass_input.type = "password";
     }
   });
-
-  const google_login = () => {
-    const start_app = function () {
-      gapi.load("auth2", function () {
-        auth2 = gapi.auth2.init({
-          client_id:
-            "305807321503-rqapibjl40pakon4rr586u07c8iucpot.apps.googleusercontent.com",
-          cookiepolicy: "single_host_origin",
-        });
-        attach_sign_in(document.getElementById("login_with_google"));
-      });
-    };
-
-    function attach_sign_in(element) {
-      auth2.attachClickHandler(
-        element,
-        {},
-        function (googleUser) {
-          const profile = googleUser.getBasicProfile();
-          console.log(profile);
-        },
-        function (error) {
-          alert(JSON.stringify(error, undefined, 2));
-        },
-      );
-    }
-    start_app();
-  };
-
-  google_login();
 });
+
+function google_login(response) {
+  const responsePayload = jwt_decode(response.credential);
+  const email = responsePayload.email;
+  localStorage.setItem("email", email);
+  window.location.href = "/market.html";
+}
