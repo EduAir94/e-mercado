@@ -49,9 +49,36 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-function google_login(response) {
-  const responsePayload = jwt_decode(response.credential);
+const client_id = document
+  .querySelector("#g_id_onload")
+  .getAttribute("data-client_id");
+
+async function google_login(response) {
+  let responsePayload;
+  if (response.access_token) {
+    const url =
+      "https://www.googleapis.com/oauth2/v3/userinfo?access_token=" +
+      response.access_token;
+    responsePayload = await fetch(url).then((res) => res.json());
+  } else {
+    responsePayload = jwt_decode(response.credential);
+  }
   const email = responsePayload.email;
   localStorage.setItem("email", email);
   window.location.href = "/market.html";
 }
+
+var client = google.accounts.oauth2.initTokenClient({
+  client_id: client_id,
+  scope: "openid",
+  ux_mode: "popup",
+  response_type: "id_token token",
+  callback: google_login,
+});
+
+document
+  .querySelector("#login_with_google")
+  .addEventListener("click", function (e) {
+    client.requestAccessToken();
+    e.preventDefault();
+  });
