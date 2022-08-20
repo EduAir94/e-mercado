@@ -12,7 +12,7 @@
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <div id="g_id_onload"
          data-client_id="305807321503-rqapibjl40pakon4rr586u07c8iucpot.apps.googleusercontent.com"
-         data-callback="google_login"
+         data-callback="googleLogin"
          >
     </div>
     <div class="g_id_signin" data-type="standard"></div>
@@ -85,16 +85,18 @@
                   </div>
                   <div class="invalid-feedback">Ingresa tu contraseña</div>
                 </div>
-                <div class="mt-4">
-                  <button class="btn btn-primary px-4 py-2" type="submit">
-                    Ingresar
-                  </button>
-                </div>
-                <div class="mt-4">
-                  <button id="login_with_google" class="btn btn-danger login_with_google d-flex align-items-center mx-auto">
-                    <i class="bi bi-google"></i>
-                    <span >Login with google</span>
-                  </button>
+                <div>
+                  <div class="mt-4">
+                    <button class="btn btn-primary px-4 py-2" type="submit">
+                      Ingresar
+                    </button>
+                  </div>
+                  <div class="mt-3">
+                    <button id="login_with_google" class="px-4 py-2 btn btn-danger login_with_google d-flex align-items-center mx-auto">
+                      <i class="bi bi-google"></i>
+                      <span >Ingresar con Google</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </form>
