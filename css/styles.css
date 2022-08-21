@@ -191,6 +191,10 @@ a.custom-card:hover {
 
 /** Login Styles */
 
+#login_page {
+  background: #f8f9fa;
+}
+
 #login #password {
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
@@ -203,4 +207,16 @@ a.custom-card:hover {
 
 .login_with_google {
   gap: 12px;
+}
+
+#login label {
+  display: block;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.flex-10 {
+  flex: 10;
 }

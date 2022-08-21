@@ -141,3 +141,5 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// Code that fades in a text, native javascript.
