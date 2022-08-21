@@ -22,7 +22,9 @@ function Product(props) {
               <h4>
                 {name}
                 {' '}
+                {' '}
                 -
+                {' '}
                 {currency}
                 {' '}
                 {cost}

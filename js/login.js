@@ -38,7 +38,7 @@ class LoginForm extends React.Component {
     }
     localStorage.setItem('email', email);
     event.preventDefault();
-    // window.location.href = '/market.html';
+    window.location.href = '/market.html';
   }
 
   googleLogin = async (response) => {
