@@ -48,7 +48,7 @@ Product.propTypes = {
 };
 
 class Sort extends React.Component {
-  constructor({ handleChange }) {
+  constructor({ handleChange, count }) {
     super();
     this.state = '';
     this.handleChange = handleChange;
@@ -66,7 +66,7 @@ class Sort extends React.Component {
       {
         id: 'sortByCount',
         content: (<i className="fas fa-sort-amount-down mr-1" />),
-        exec: (a, b) => a.soldCount - b.soldCount,
+        exec: (a, b) => a[count] - b[count],
       },
     ];
   }
