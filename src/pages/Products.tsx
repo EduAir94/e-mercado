@@ -73,7 +73,7 @@ function Products() {
             <Sort count="soldCount" sort="cost" type="numeric" handleSort={handleSort} />
           </div>
           <div className="row">
-            <Filter count="cost" handleFilter={handleFilter} />
+            <Filter label="Precio" count="cost" handleFilter={handleFilter} />
           </div>
           <div id="product-list">{list(filterList())}</div>
         </div>

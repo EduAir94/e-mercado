@@ -12,6 +12,7 @@ class Filter extends Component<unknown, FilterInterface> {
     return {
       handleFilter: PropTypes.func.isRequired,
       count: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
     };
   }
 
@@ -21,12 +22,14 @@ class Filter extends Component<unknown, FilterInterface> {
 
   private handleFilter: any;
   private count: string;
+  private label: string;
 
   constructor(props: any) {
     super(props);
     this.state = { minCount: '', maxCount: '' };
     this.handleFilter = props.handleFilter;
     this.count = props.count;
+    this.label = props.label;
   }
 
   setValue(event: React.FormEvent<HTMLDivElement>) {
@@ -65,7 +68,7 @@ class Filter extends Component<unknown, FilterInterface> {
       <div className="col-lg-6 offset-lg-6 col-md-12 mb-1 container">
         <div className="row container p-0 m-0">
           <div className="col">
-            <p className="font-weight-normal text-end my-2">Cant.</p>
+            <p className="font-weight-normal text-end my-2">{this.label}</p>
           </div>
           <div className="col">
             <input

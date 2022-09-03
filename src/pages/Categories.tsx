@@ -60,7 +60,7 @@ function Categories() {
           <Sort count="productCount" sort="name" type="text" handleSort={handleSort}></Sort>
         </div>
         <div className="row">
-          <Filter handleFilter={handleFilter} count="productCount"></Filter>
+          <Filter label="Cant." handleFilter={handleFilter} count="productCount"></Filter>
         </div>
         <div className="row">
           <div className="list-group" id="cat-list-container">
