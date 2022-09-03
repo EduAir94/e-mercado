@@ -8,12 +8,12 @@ const CART_BUY_URL = 'https://japceibal.github.io/emercado-api/cart/buy.json';
 const EXT_TYPE = '.json';
 
 export {
-    CATEGORIES_URL,
-    PUBLISH_PRODUCT_URL,
-    PRODUCTS_URL,
-    PRODUCT_INFO_URL,
-    PRODUCT_INFO_COMMENTS_URL,
-    CART_INFO_URL,
-    CART_BUY_URL,
-    EXT_TYPE
-}
+  CATEGORIES_URL,
+  PUBLISH_PRODUCT_URL,
+  PRODUCTS_URL,
+  PRODUCT_INFO_URL,
+  PRODUCT_INFO_COMMENTS_URL,
+  CART_INFO_URL,
+  CART_BUY_URL,
+  EXT_TYPE,
+};

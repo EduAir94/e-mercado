@@ -1,4 +1,4 @@
-import store from "../store";
+import store from '../store';
 
 const AuthService = {
   isLoggedIn() {
@@ -10,7 +10,7 @@ const AuthService = {
   },
   login({ email }: { email: string }) {
     store.dispatch({
-      type: "user/login",
+      type: 'user/login',
       payload: {
         email,
       },
@@ -18,14 +18,14 @@ const AuthService = {
   },
   logout() {
     store.dispatch({
-      type: "user/logout",
+      type: 'user/logout',
     });
   },
   setLoggedIn() {
-    const email = localStorage.getItem("email");
+    const email = localStorage.getItem('email');
     if (email) {
       store.dispatch({
-        type: "user/login",
+        type: 'user/login',
         payload: {
           email,
         },

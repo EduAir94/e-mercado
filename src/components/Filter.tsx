@@ -1,67 +1,66 @@
-import { Component } from "react";
+import { Component } from 'react';
 import PropTypes from 'prop-types';
-import { StoreObject } from "../types";
+import { StoreObject } from '../types';
 
 interface FilterInterface {
-  minCount:number | '';
-  maxCount:number | '';
+  minCount: number | '';
+  maxCount: number | '';
 }
 
 class Filter extends Component<unknown, FilterInterface> {
-  static get propTypes() { 
-    return { 
-      handleFilter: PropTypes.func.isRequired, 
-      count: PropTypes.string.isRequired
-    }; 
-}
+  static get propTypes() {
+    return {
+      handleFilter: PropTypes.func.isRequired,
+      count: PropTypes.string.isRequired,
+    };
+  }
 
-private handleFilter:any;
-private count:string;
-
-constructor(props:any) {
-  super(props);
-  this.state = {minCount: '', maxCount: ''};
-  this.handleFilter = props.handleFilter;
-  this.count = props.count;
-}
-
-setValue(event:React.FormEvent<HTMLDivElement>) {
-  const target = (event.target as HTMLInputElement);
-  const arg:any = {
-      [target.name]: target.value 
+  static defaultProps = {
+    prop1: { foobar: 'foobar' },
   };
-  this.setState(arg)
-}
 
-filterMethod(el:StoreObject) {
-  if(!el) return;
-  const property = el[this.count];
-  const {minCount, maxCount} = this.state;
-  const conditional = (
-    (minCount === '') || 
-    (parseInt(property, 10) >= minCount)
-    ) && 
-    (
-      (maxCount === '')
-      || (parseInt(property, 10) <= maxCount)
-    )
-  return conditional;
-}
+  private handleFilter: any;
+  private count: string;
 
-submit() {
-  this.handleFilter(this.filterMethod.bind(this));
-}
+  constructor(props: any) {
+    super(props);
+    this.state = { minCount: '', maxCount: '' };
+    this.handleFilter = props.handleFilter;
+    this.count = props.count;
+  }
 
-clean() {
-  this.setState({
-    minCount: '',
-    maxCount: ''
-  })
-  this.handleFilter(() => true);
-}
+  setValue(event: React.FormEvent<HTMLDivElement>) {
+    const target = event.target as HTMLInputElement;
+    const arg: any = {
+      [target.name]: target.value,
+    };
+    this.setState(arg);
+  }
 
- render() {
-    const {minCount, maxCount} = this.state;
+  filterMethod(el: StoreObject) {
+    if (!el) return;
+    const property = el[this.count];
+    const { minCount, maxCount } = this.state;
+    const conditional =
+      (minCount === '' || parseInt(property, 10) >= minCount) &&
+      (maxCount === '' || parseInt(property, 10) <= maxCount);
+    return conditional;
+  }
+
+  submit() {
+    this.handleFilter(this.filterMethod.bind(this));
+  }
+
+  clean() {
+    this.setState({
+      minCount: '',
+      maxCount: '',
+    });
+    this.handleFilter(() => true);
+  }
+
+  render() {
+    const { minCount, maxCount } = this.state;
     return (
       <div className="col-lg-6 offset-lg-6 col-md-12 mb-1 container">
         <div className="row container p-0 m-0">
@@ -92,18 +91,28 @@ clean() {
           </div>
           <div className="col-3 p-0">
             <div className="btn-group" role="group">
-              <button onClick={this.submit.bind(this)} type="button" className="btn btn-light btn-block" id="rangeFilterCount">
+              <button
+                onClick={this.submit.bind(this)}
+                type="button"
+                className="btn btn-light btn-block"
+                id="rangeFilterCount"
+              >
                 Filtrar
               </button>
-              <button onClick={this.clean.bind(this)} type="button" className="btn btn-link btn-sm" id="clearRangeFilter">
+              <button
+                onClick={this.clean.bind(this)}
+                type="button"
+                className="btn btn-link btn-sm"
+                id="clearRangeFilter"
+              >
                 Limpiar
               </button>
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
-  }
+}
 
-  export default Filter;
+export default Filter;

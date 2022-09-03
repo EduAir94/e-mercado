@@ -13,7 +13,7 @@ export interface Product {
 export type StoreObject = any;
 
 export interface JSONResult {
-  status: "ok" | "error";
+  status: 'ok' | 'error';
   data: any;
 }
 

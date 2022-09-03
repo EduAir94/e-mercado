@@ -1,4 +1,4 @@
-import { NavigateFunction, Params } from "react-router-dom";
+import { NavigateFunction, Params } from 'react-router-dom';
 
 interface RouteInterface {
   location: Location;

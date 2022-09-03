@@ -1,17 +1,17 @@
-import { Routes, Route } from "react-router-dom";
-import Footer from "./components/Footer";
-import NavBar from "./components/NavBar";
-import Cart from "./pages/Cart";
-import Categories from "./pages/Categories";
-import Login from "./pages/Login";
-import Market from "./pages/Market";
-import MyProfile from "./pages/MyProfile";
-import ProductInfo from "./pages/ProductInfo";
-import Products from "./pages/Products";
-import Sell from "./pages/Sell";
-import PrivateRoute from "./routes/PrivateRoute";
-import WithNav from "./routes/WithNav";
-import AuthService from "./services/authService";
+import { Routes, Route } from 'react-router-dom';
+import Footer from './components/Footer';
+import NavBar from './components/NavBar';
+import Cart from './pages/Cart';
+import Categories from './pages/Categories';
+import Login from './pages/Login';
+import Market from './pages/Market';
+import MyProfile from './pages/MyProfile';
+import ProductInfo from './pages/ProductInfo';
+import Products from './pages/Products';
+import Sell from './pages/Sell';
+import PrivateRoute from './routes/PrivateRoute';
+import WithNav from './routes/WithNav';
+import AuthService from './services/authService';
 
 function App() {
   AuthService.setLoggedIn();
