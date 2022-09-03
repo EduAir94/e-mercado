@@ -4,8 +4,6 @@
   "homepage": "https://eduair94.github.io",
   "private": true,
   "dependencies": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "@react-oauth/google": "^0.2.6",
     "@reduxjs/toolkit": "^1.8.5",
     "@testing-library/jest-dom": "^5.16.5",
