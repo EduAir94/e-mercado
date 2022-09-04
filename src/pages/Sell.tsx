@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Button, Modal } from 'react-bootstrap';
 
 declare let Dropzone: any;
 function Sell() {
@@ -11,6 +12,10 @@ function Sell() {
     console.log('ELEMENT', element);
     new Dropzone('div#file-upload', dzoptions);
   }, []);
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   return (
     <main>
@@ -172,14 +177,9 @@ function Sell() {
                   </label>
                 </div>
                 <div className="row">
-                  <button
-                    type="button"
-                    className="m-1 btn btn-link"
-                    data-bs-toggle="modal"
-                    data-bs-target="#contidionsModal"
-                  >
+                  <Button variant="link" className="m-1" onClick={handleShow}>
                     Ver condiciones
-                  </button>
+                  </Button>
                 </div>
               </div>
               <hr className="mb-4"></hr>
@@ -215,6 +215,45 @@ function Sell() {
             </form>
           </div>
         </div>
+        <Modal show={show} onHide={handleClose}>
+          <div className="modal-content">
+            <div className="modal-header">
+              <h5 className="modal-title">Condiciones de publicación</h5>
+            </div>
+            <div className="modal-body">
+              <div className="container">
+                <div className="row">
+                  <h5 className="text-warning">Gold (13%)</h5>
+                  <p className="muted text-justify">
+                    Tu producto se verá de forma promocionada en portada, además de las condiciones
+                    de Premium y Estándar.
+                  </p>
+                </div>
+                <hr />
+                <div className="row">
+                  <h5 className="text-primary">Premium (7%)</h5>
+                  <p className="muted text-justify">
+                    Se mostrará el producto en los primeros lugares de resultados de búsqueda, así
+                    cómo cuando se ingrese a la categoría que pertenezca.
+                  </p>
+                </div>
+                <hr />
+                <div className="row">
+                  <h5 className="text-secondary">Estándar (3%)</h5>
+                  <p className="muted text-justify">
+                    El producto se listará en la categoría correspondiente, así como en los
+                    resultados de búsquedas que coincidan con las palabras claves en el nombre.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div className="modal-footer">
+              <Button variant="primary" onClick={handleClose}>
+                Cerrar
+              </Button>
+            </div>
+          </div>
+        </Modal>
       </div>
     </main>
   );

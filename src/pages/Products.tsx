@@ -11,8 +11,8 @@ function Products() {
   const { catID } = useParams();
   const [data, setData] = useState<{ items: Product[]; catName?: string }>({
     items: [],
-    catName: '',
   });
+  const [catName, setCatName] = useState<string>('');
   const [filter, setFilter] = useState<{ filter: FilterData['exec'] | undefined }>({
     filter: undefined,
   });
@@ -25,7 +25,8 @@ function Products() {
       const res = await getJSONData(url);
       const result = res.data;
       if (result) {
-        setData({ items: result.products, catName: result.catName });
+        setData({ items: result.products });
+        setCatName(result.catName);
       }
     };
     let categoryId: number;
@@ -36,6 +37,7 @@ function Products() {
         ? parseInt(localStorage.getItem('catID') as string)
         : 101;
     }
+    console.log('Category', categoryId);
     if (categoryId) {
       fetchData(categoryId);
     }
@@ -61,21 +63,21 @@ function Products() {
   const list = (products: Product[]) =>
     products.map((product) => <ProductItem key={product.id} product={product} />);
 
-  if (data && data.items.length) {
+  if (data) {
     return (
-      <div>
+      <div className="container">
         <div className="text-center p-4">
           <h2>Productos</h2>
-          <p className="lead">Verás aquí todos los productos de la categoría {data.catName}.</p>
+          <p className="lead">Verás aquí todos los productos de la categoría {catName}.</p>
         </div>
-        <div className="container">
+        <div>
           <div className="row">
             <Sort count="soldCount" sort="cost" type="numeric" handleSort={handleSort} />
           </div>
           <div className="row">
             <Filter label="Precio" count="cost" handleFilter={handleFilter} />
           </div>
-          <div id="product-list">{list(filterList())}</div>
+          <div id="product-list">{data ? list(filterList()) : ''}</div>
         </div>
       </div>
     );

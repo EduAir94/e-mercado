@@ -3,6 +3,11 @@ import { RouteInterface } from '../routes/types';
 import { withRouter } from '../routes/WithRouter';
 
 function Market({ router }: { router: RouteInterface }) {
+  const navigate_product = (categoryId: number) => {
+    localStorage.setItem('catID', categoryId.toString());
+    router.navigate(`/products/${categoryId}`);
+  };
+
   return (
     <main>
       <div className="jumbotron text-center"></div>
@@ -11,7 +16,7 @@ function Market({ router }: { router: RouteInterface }) {
           <div className="row">
             <div className="col-md-4">
               <div
-                onClick={() => router.navigate('/products/101')}
+                onClick={() => navigate_product(101)}
                 className="card mb-4 shadow-sm custom-card cursor-active"
                 id="autos"
               >
@@ -30,7 +35,7 @@ function Market({ router }: { router: RouteInterface }) {
             </div>
             <div className="col-md-4">
               <div
-                onClick={() => router.navigate('/products/102')}
+                onClick={() => navigate_product(102)}
                 className="card mb-4 shadow-sm custom-card cursor-active"
                 id="juguetes"
               >
@@ -49,7 +54,7 @@ function Market({ router }: { router: RouteInterface }) {
             </div>
             <div className="col-md-4">
               <div
-                onClick={() => router.navigate('/products/103')}
+                onClick={() => navigate_product(103)}
                 className="card mb-4 shadow-sm custom-card cursor-active"
                 id="muebles"
               >

@@ -3,6 +3,7 @@ import { RouteInterface } from '../routes/types';
 import { withRouter } from '../routes/WithRouter';
 import AuthService from '../services/authService';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Navbar from 'react-bootstrap/Navbar';
 
 function NavBar({ router }: { router: RouteInterface }) {
   const logout = () => {
@@ -12,20 +13,15 @@ function NavBar({ router }: { router: RouteInterface }) {
 
   const user = AuthService.user();
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-1">
+    <Navbar bg="dark" expand="lg" className="navbar-dark p-1">
       <div className="container">
-        <button
-          className="navbar-toggler"
+        <Navbar.Toggle
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
           aria-expanded="false"
           aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+          aria-controls="navbarNav"
+        />
+        <Navbar.Collapse id="navbarNav">
           <ul className="navbar-nav w-100 justify-content-between">
             <li className="nav-item">
               <Link className="nav-link" to="/">
@@ -51,9 +47,9 @@ function NavBar({ router }: { router: RouteInterface }) {
               </a>
             </NavDropdown>
           </ul>
-        </div>
+        </Navbar.Collapse>
       </div>
-    </nav>
+    </Navbar>
   );
 }
 

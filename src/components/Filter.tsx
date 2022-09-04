@@ -1,10 +1,12 @@
 import { Component } from 'react';
 import PropTypes from 'prop-types';
 import { StoreObject } from '../types';
+import { Form } from 'react-bootstrap';
 
 interface FilterInterface {
   minCount: number | '';
   maxCount: number | '';
+  search: string;
 }
 
 class Filter extends Component<unknown, FilterInterface> {
@@ -26,10 +28,11 @@ class Filter extends Component<unknown, FilterInterface> {
 
   constructor(props: any) {
     super(props);
-    this.state = { minCount: '', maxCount: '' };
+    this.state = { minCount: '', maxCount: '', search: '' };
     this.handleFilter = props.handleFilter;
     this.count = props.count;
     this.label = props.label;
+    this.searchUpdate.bind(this);
   }
 
   setValue(event: React.FormEvent<HTMLDivElement>) {
@@ -40,30 +43,63 @@ class Filter extends Component<unknown, FilterInterface> {
     this.setState(arg);
   }
 
+  // highlight words found by regex in text.
+  highLightWords(el: StoreObject, search: string) {
+    const { name, description } = el;
+    if (search) {
+      el.html_name = name.replace(
+        new RegExp(search, 'gi'),
+        (match: string) => `<span class="bg-warning">${match}</span>`
+      );
+      el.html_description = description.replace(
+        new RegExp(search, 'gi'),
+        (match: string) => `<span class="bg-warning">${match}</span>`
+      );
+    } else {
+      el.html_name = name;
+      el.html_description = description;
+    }
+  }
+
   filterMethod(el: StoreObject) {
     if (!el) return;
     const property = el[this.count];
-    const { minCount, maxCount } = this.state;
+    const { minCount, maxCount, search } = this.state;
     const conditional =
       (minCount === '' || parseInt(property, 10) >= minCount) &&
       (maxCount === '' || parseInt(property, 10) <= maxCount);
+    if (conditional && search !== '') {
+      this.highLightWords(el, search);
+      const { name, description } = el;
+      return new RegExp(search, 'i').test(name + description);
+    }
+    this.highLightWords(el, search);
     return conditional;
   }
 
   submit() {
+    console.log('Value', this.state);
     this.handleFilter(this.filterMethod.bind(this));
   }
 
-  clean() {
-    this.setState({
+  async clean() {
+    await this.setState({
+      ...this.state,
       minCount: '',
       maxCount: '',
     });
-    this.handleFilter(() => true);
+    console.log('Clean', this.state);
+    this.handleFilter(this.filterMethod.bind(this));
+  }
+
+  async searchUpdate(e: React.ChangeEvent<HTMLInputElement>) {
+    await this.setState({ search: e.target.value });
+    console.log('SEARCH', e.target.value);
+    this.submit();
   }
 
   render() {
-    const { minCount, maxCount } = this.state;
+    const { minCount, maxCount, search } = this.state;
     return (
       <div className="col-lg-6 offset-lg-6 col-md-12 mb-1 container">
         <div className="row container p-0 m-0">
@@ -111,6 +147,14 @@ class Filter extends Component<unknown, FilterInterface> {
                 Limpiar
               </button>
             </div>
+          </div>
+          <div className="col-12 py-2">
+            <Form.Control
+              defaultValue={search}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => this.searchUpdate(e)}
+              type="search"
+              placeholder="Busca por nombre / descripción"
+            />
           </div>
         </div>
       </div>
