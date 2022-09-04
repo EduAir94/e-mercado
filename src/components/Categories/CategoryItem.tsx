@@ -5,9 +5,14 @@ import { Category } from '../../types';
 
 function CategoryItem({ item, router }: { item: Category; router: RouteInterface }) {
   const category = item;
+
+  const navigateCategory = (categoryId: number) => {
+    localStorage.setItem('catID', categoryId.toString());
+    router.navigate(`/products/${categoryId}`);
+  };
   return (
     <div
-      onClick={() => router.navigate('/products/' + category.id)}
+      onClick={() => navigateCategory(category.id)}
       className="list-group-item list-group-item-action cursor-active"
     >
       <div className="row">

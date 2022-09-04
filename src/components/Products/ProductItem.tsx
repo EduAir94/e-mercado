@@ -4,6 +4,7 @@ function ProductItem(props: any) {
   const { html_name, html_description } = product;
   const textTitle = `${html_name ? html_name : name} - ${currency} ${cost}`;
   const textDescription = html_description ? html_description : description;
+
   return (
     <div className="list-group-item list-group-item-action">
       <div className="row">

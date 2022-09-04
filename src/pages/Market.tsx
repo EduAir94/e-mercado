@@ -3,7 +3,7 @@ import { RouteInterface } from '../routes/types';
 import { withRouter } from '../routes/WithRouter';
 
 function Market({ router }: { router: RouteInterface }) {
-  const navigate_product = (categoryId: number) => {
+  const navigateCategory = (categoryId: number) => {
     localStorage.setItem('catID', categoryId.toString());
     router.navigate(`/products/${categoryId}`);
   };
@@ -16,7 +16,7 @@ function Market({ router }: { router: RouteInterface }) {
           <div className="row">
             <div className="col-md-4">
               <div
-                onClick={() => navigate_product(101)}
+                onClick={() => navigateCategory(101)}
                 className="card mb-4 shadow-sm custom-card cursor-active"
                 id="autos"
               >
@@ -35,7 +35,7 @@ function Market({ router }: { router: RouteInterface }) {
             </div>
             <div className="col-md-4">
               <div
-                onClick={() => navigate_product(102)}
+                onClick={() => navigateCategory(102)}
                 className="card mb-4 shadow-sm custom-card cursor-active"
                 id="juguetes"
               >
@@ -54,7 +54,7 @@ function Market({ router }: { router: RouteInterface }) {
             </div>
             <div className="col-md-4">
               <div
-                onClick={() => navigate_product(103)}
+                onClick={() => navigateCategory(103)}
                 className="card mb-4 shadow-sm custom-card cursor-active"
                 id="muebles"
               >
