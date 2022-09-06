@@ -8,6 +8,14 @@ export interface Category {
 
 export interface Product {
   id: number;
+  name: string;
+  description: string;
+  cost: number;
+  currency: string;
+  soldCount: number;
+  image: string;
+  html_name?: string;
+  html_description?: string;
 }
 
 export type StoreObject = any;
@@ -25,4 +33,30 @@ export interface SortData {
 
 export interface FilterData {
   exec: (a: StoreObject) => boolean;
+}
+
+export interface ProductFull {
+  id: number;
+  name: string;
+  description: string;
+  cost: number;
+  currency: string;
+  soldCount: number;
+  category: string;
+  images: string[];
+  relatedProducts: RelatedProduct[];
+}
+
+interface RelatedProduct {
+  id: number;
+  name: string;
+  image: string;
+}
+
+export interface ProductComment {
+  product: number;
+  score: number;
+  description: string;
+  user: string;
+  dateTime: string;
 }

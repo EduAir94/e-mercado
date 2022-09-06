@@ -28,6 +28,7 @@ function App() {
           <Route path="/products/:catID" element={<PrivateRoute Component={Products} />} />
           <Route path="/products" element={<PrivateRoute Component={Products} />} />
           <Route path="/product-info" element={<PrivateRoute Component={ProductInfo} />} />
+          <Route path="/product-info/:prodID" element={<PrivateRoute Component={ProductInfo} />} />
         </Route>
       </Routes>
       <Footer></Footer>

@@ -224,3 +224,10 @@ a.custom-card:hover {
 .user_email {
   color: white;
 }
+
+
+/** Product Info */
+
+.product_info_content {
+  font-size:20px;
+}
