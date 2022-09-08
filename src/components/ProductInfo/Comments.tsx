@@ -18,7 +18,7 @@ function Comments({ productId }: { productId: number }) {
       }
     };
     fetchData(productId);
-  }, []);
+  }, [productId]);
 
   return (
     <div className="mt-3">

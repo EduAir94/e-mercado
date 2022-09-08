@@ -4,6 +4,7 @@ import { withRouter } from '../routes/WithRouter';
 import AuthService from '../services/authService';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Navbar from 'react-bootstrap/Navbar';
+import SearchBar from './SearchBar';
 
 function NavBar({ router }: { router: RouteInterface }) {
   const logout = () => {
@@ -13,7 +14,10 @@ function NavBar({ router }: { router: RouteInterface }) {
 
   const user = AuthService.user();
   return (
-    <Navbar bg="dark" expand="lg" className="navbar-dark p-1">
+    <Navbar bg="dark" expand="lg" className="navbar-dark p-1 d-flex flex-column">
+      <div className="container">
+        <SearchBar></SearchBar>
+      </div>
       <div className="container">
         <Navbar.Toggle
           type="button"

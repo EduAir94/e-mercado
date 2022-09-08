@@ -29,7 +29,7 @@ function ProductInfo() {
     }
 
     fetchData(productId);
-  }, []);
+  }, [prodID]);
 
   if (!data) return <></>;
 
