@@ -224,3 +224,30 @@ a.custom-card:hover {
 .user_email {
   color: white;
 }
+
+
+/** Product Info */
+
+.product_info_content {
+  font-size:20px;
+}
+
+/* Nav Search */
+
+.nav_search {
+  width:100%;
+  max-width:500px;
+}
+
+.dropdown-menu {
+  padding:0;
+}
+
+.dropdown-menu  a {
+  padding:0;
+}
+
+.dropdown-menu .list-group-item {
+  border-bottom:none!important;
+  border-left:none!important;
+}
