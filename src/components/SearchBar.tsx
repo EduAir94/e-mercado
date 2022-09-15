@@ -78,10 +78,10 @@ function SearchBar({ router }: { router: RouteInterface }) {
 
   return (
     <div className="search-bar w-100 row m-0 py-2">
-      <div className="col-3 d-flex align-items-center">
+      <div className="col-md-12 col-lg-3 d-flex align-items-center">
         <h1 className="font-weight-bold text-white">e-mercado</h1>
       </div>
-      <div className="col-5 d-flex align-items-center">
+      <div className="col-md-12 col-lg-5 d-flex align-items-center">
         <Typeahead
           onKeyDown={(e) => {
             const isValid = e.key === 'Enter' || e.key === 'Tab';
@@ -107,7 +107,7 @@ function SearchBar({ router }: { router: RouteInterface }) {
           }}
         />
       </div>
-      <div className="col-3"></div>
+      <div className="d-md-none col-lg-3"></div>
     </div>
   );
 }
