@@ -70,7 +70,7 @@ function SearchBar({ router }: { router: RouteInterface }) {
   };
 
   return (
-    <div className="search-bar w-100 row m-0 pb-2 pt-0 gx-0">
+    <div className="search-bar w-100 row m-0 pb-2 pt-0 pt-md-2 gx-0">
       <div className="col-md-12 col-lg-3 d-flex align-items-center">
         <h2 className="font-weight-bold text-white">
           <Link className="text-white" to="/">
