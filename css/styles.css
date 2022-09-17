@@ -251,3 +251,7 @@ a.custom-card:hover {
   border-bottom:none!important;
   border-left:none!important;
 }
+
+.score_select {
+  max-width:250px;
+}
