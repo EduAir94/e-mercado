@@ -1,4 +1,3 @@
-import { NavigateFunction } from 'react-router-dom';
 import { RouteInterface } from '../../routes/types';
 import { withRouter } from '../../routes/WithRouter';
 import { Category } from '../../types';
@@ -16,7 +15,7 @@ function CategoryItem({ item, router }: { item: Category; router: RouteInterface
       className="list-group-item list-group-item-action cursor-active"
     >
       <div className="row">
-        <div className="col-3">
+        <div className="col-12 col-md-3 pb-2 pb-md-0">
           <img src={category.imgSrc} alt={category.description} className="img-thumbnail"></img>
         </div>
         <div className="col">

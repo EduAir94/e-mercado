@@ -13,7 +13,7 @@ function Footer() {
           </a>
         </p>
         <p>
-          Este sitio forma parte de
+          Este sitio forma parte de{' '}
           <a href="https://jovenesaprogramar.edu.uy/" target="_blank" rel="noreferrer">
             Jovenes a Programar
           </a>

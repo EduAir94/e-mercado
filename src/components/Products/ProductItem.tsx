@@ -9,13 +9,14 @@ function ProductItem({ product, router }: { product: Product; router: RouteInter
   const textDescription = html_description ? html_description : description;
 
   const goToProduct = () => {
+    localStorage.setItem('prodID', id.toString());
     router.navigate('/product-info/' + id);
   };
 
   return (
-    <div onClick={goToProduct} className="list-group-item list-group-item-action">
+    <div onClick={goToProduct} className="list-group-item list-group-item-action cursor-active">
       <div className="row">
-        <div className="col-3">
+        <div className="col-12 col-md-3 pb-2 pb-md-0">
           <img alt="product_image" src={'/' + image} className="img-thumbnail" />
         </div>
         <div className="col">

@@ -12,7 +12,7 @@ function SearchBar({ router }: { router: RouteInterface }) {
 
   const product_render = (option: Product, pr: TypeaheadMenuProps) => {
     const { text } = pr;
-    const { image, name, description, soldCount, cost, currency, id } = option;
+    const { image, name, description, soldCount, id } = option;
     return (
       <div key={id} className="list-group-item list-group-item-action">
         <div className="row m-0">
@@ -68,16 +68,8 @@ function SearchBar({ router }: { router: RouteInterface }) {
     console.log('Selected', nav, url);
   };
 
-  const keyDown = (e: any, results: any, isMenuDown: any) => {
-    if (results && results.length && (e.key === 'Enter' || e.key === 'Tab')) {
-      e.preventDefault();
-      e.stopPropagation();
-      onChange(results);
-    }
-  };
-
   return (
-    <div className="search-bar w-100 row m-0 py-2">
+    <div className="search-bar w-100 row m-0 pb-2 pt-0 gx-0">
       <div className="col-md-12 col-lg-3 d-flex align-items-center">
         <h1 className="font-weight-bold text-white">e-mercado</h1>
       </div>
@@ -102,7 +94,7 @@ function SearchBar({ router }: { router: RouteInterface }) {
           onChange={(selected) => onChange(selected as any)}
           paginate={false}
           placeholder="Buscar producto..."
-          renderMenuItemChildren={(option, props, index) => {
+          renderMenuItemChildren={(option, props) => {
             return product_render(option as any, props);
           }}
         />

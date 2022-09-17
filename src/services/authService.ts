@@ -5,7 +5,7 @@ const AuthService = {
     const userState = store.getState().user;
     return userState.isLoggedIn;
   },
-  user() {
+  user(): { email: string } {
     return store.getState().user;
   },
   login({ email }: { email: string }) {

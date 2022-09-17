@@ -1,4 +1,4 @@
-import { Link, Navigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { RouteInterface } from '../routes/types';
 import { withRouter } from '../routes/WithRouter';
 import AuthService from '../services/authService';
@@ -14,7 +14,7 @@ function NavBar({ router }: { router: RouteInterface }) {
 
   const user = AuthService.user();
   return (
-    <Navbar bg="dark" expand="lg" className="navbar-dark p-1 d-flex flex-column">
+    <Navbar bg="dark" expand="lg" className="navbar-dark p-1 pb-2 d-flex flex-column">
       <div className="container">
         <SearchBar></SearchBar>
       </div>
@@ -43,10 +43,10 @@ function NavBar({ router }: { router: RouteInterface }) {
               </Link>
             </li>
             <NavDropdown title={user.email} id="basic-nav-dropdown">
-              <Link className="dropdown-item" to="/my-profile">
+              <Link className="dropdown-item p-2" to="/my-profile">
                 Profile
               </Link>
-              <a onClick={logout} className="dropdown-item" href="#">
+              <a onClick={logout} className="dropdown-item p-2" href="#">
                 Logout
               </a>
             </NavDropdown>

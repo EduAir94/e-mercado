@@ -101,7 +101,7 @@ class Filter extends Component<unknown, FilterInterface> {
   render() {
     const { minCount, maxCount, search } = this.state;
     return (
-      <div className="col-lg-6 offset-lg-6 col-md-12 mb-1 container">
+      <div className="col-12 col-lg-6 offset-lg-6 col-md-12 mb-1 container">
         <div className="row container p-0 m-0">
           <div className="col">
             <p className="font-weight-normal text-end my-2">{this.label}</p>
@@ -128,8 +128,8 @@ class Filter extends Component<unknown, FilterInterface> {
               id="rangeFilterCountMax"
             />
           </div>
-          <div className="col-3 p-0">
-            <div className="btn-group" role="group">
+          <div className="col-12 col-md-3 p-md-0">
+            <div className="btn-group w-100 py-2 py-md-0" role="group">
               <button
                 onClick={this.submit.bind(this)}
                 type="button"

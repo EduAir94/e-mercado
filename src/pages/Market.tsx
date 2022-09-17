@@ -10,7 +10,7 @@ function Market({ router }: { router: RouteInterface }) {
 
   return (
     <main>
-      <div className="jumbotron text-center"></div>
+      <div className="d-none d-md-block jumbotron text-center"></div>
       <div className="album py-5 bg-light">
         <div className="container">
           <div className="row">
