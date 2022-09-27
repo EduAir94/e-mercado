@@ -41,12 +41,12 @@ function SearchBar({ router }: { router: RouteInterface }) {
   useEffect(() => {
     const fetchData = async () => {
       const url = `${CATEGORIES_URL}`;
-      const res = await getJSONData(url);
+      const res = await getJSONData(url, true);
       const result = res.data;
       const products = [];
       for (const { id } of result) {
         const url = `${PRODUCTS_URL}${id}${EXT_TYPE}`;
-        const { data } = await getJSONData(url);
+        const { data } = await getJSONData(url, true);
         products.push(...data.products);
       }
       console.log('REsult navbar', products);

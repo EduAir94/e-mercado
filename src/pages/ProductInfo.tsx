@@ -1,22 +1,48 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Comments from '../components/ProductInfo/Comments';
-import { EXT_TYPE, PRODUCT_INFO_URL } from '../services/constants';
-import { getJSONData } from '../services/init';
-import { ProductFull } from '../types';
+import RelatedProduct from '../components/ProductInfo/RelatedProduct';
+import { EXT_TYPE, PRODUCT_INFO_COMMENTS_URL, PRODUCT_INFO_URL } from '../services/constants';
+import { getJSONData, hideSpinner, showSpinner } from '../services/init';
+import { ProductComment, ProductFull } from '../types';
 
 function ProductInfo() {
   const { prodID } = useParams();
   const [data, setData] = useState<ProductFull>();
+  const [comments, setComments] = useState<ProductComment[]>([]);
 
   useEffect(() => {
     const fetchData = async (productId: number) => {
-      const url = `${PRODUCT_INFO_URL}${productId}${EXT_TYPE}`;
-      const res = await getJSONData(url);
-      const result: ProductFull = res.data;
-      if (result) {
-        setData(result);
-      }
+      const set_product_info = async () => {
+        const url = `${PRODUCT_INFO_URL}${productId}${EXT_TYPE}`;
+        const res = await getJSONData(url, true);
+        const result: ProductFull = res.data;
+        if (result) {
+          return new Promise((resolve) => {
+            setTimeout(() => {
+              setData(result);
+              resolve(true);
+            }, 5000);
+          });
+        }
+      };
+      // Set Comments.
+      const set_comments = async () => {
+        const url = `${PRODUCT_INFO_COMMENTS_URL}${productId}${EXT_TYPE}`;
+        const res = await getJSONData(url, true);
+        const result: ProductComment[] = res.data || [];
+        setComments(result);
+        return result;
+      };
+      showSpinner();
+      await set_product_info();
+      await set_comments();
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'instant',
+      } as any);
+      hideSpinner();
     };
 
     let productId: number;
@@ -62,6 +88,8 @@ function ProductInfo() {
     });
   };
 
+  console.log('RENDER DATA', data);
+
   return (
     <main>
       <div className="container">
@@ -73,7 +101,22 @@ function ProductInfo() {
           <ul className="list-unstyled">{list()}</ul>
         </div>
         <div className="product_comments">
-          <Comments productId={data.id} />
+          <Comments comments={comments} productId={data.id} />
+        </div>
+        <hr className="mt-5 mb-5" />
+        <div>
+          <h4 className="pb-3">Productos relacionados</h4>
+          <div className="products_related">
+            <div className="row">
+              {data.relatedProducts.map((el) => {
+                return (
+                  <div key={el.id} className="col-12 col-md-6 col-lg-3 mb-3">
+                    <RelatedProduct {...el}></RelatedProduct>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </main>

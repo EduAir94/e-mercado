@@ -43,8 +43,11 @@ function NavBar({ router }: { router: RouteInterface }) {
               </Link>
             </li>
             <NavDropdown title={user.email} id="basic-nav-dropdown">
+              <Link className="dropdown-item p-2" to="/cart">
+                Mi Carrito
+              </Link>
               <Link className="dropdown-item p-2" to="/my-profile">
-                Profile
+                Mi Perfil
               </Link>
               <a onClick={logout} className="dropdown-item p-2" href="#">
                 Logout

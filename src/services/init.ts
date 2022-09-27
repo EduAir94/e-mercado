@@ -15,9 +15,9 @@ const hideSpinner = () => {
 };
 
 // eslint-disable-next-line no-unused-vars
-const getJSONData = (url: string) => {
+const getJSONData = (url: string, disable_spinner = false) => {
   const result: JSONResult = { status: 'ok', data: null };
-  showSpinner();
+  if (!disable_spinner) showSpinner();
   return fetch(url)
     .then((response) => {
       if (response.ok) {
@@ -28,13 +28,13 @@ const getJSONData = (url: string) => {
     .then((response) => {
       result.status = 'ok';
       result.data = response;
-      hideSpinner();
+      if (!disable_spinner) hideSpinner();
       return result;
     })
     .catch((error) => {
       result.status = 'error';
       result.data = error;
-      hideSpinner();
+      if (!disable_spinner) hideSpinner();
       return result;
     });
 };

@@ -1,7 +1,5 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import { EXT_TYPE, PRODUCT_INFO_COMMENTS_URL } from '../../services/constants';
-import { getJSONData } from '../../services/init';
 import { ProductComment } from '../../types';
 import CommentItem from './CommentItem';
 import Form from 'react-bootstrap/Form';
@@ -9,17 +7,11 @@ import { Button } from 'react-bootstrap';
 import AuthService from '../../services/authService';
 import commentStorage from '../../services/comentStorage';
 
-function Comments({ productId }: { productId: number }) {
+function Comments({ comments, productId }: { comments: ProductComment[]; productId: number }) {
   const [data, setData] = useState<ProductComment[]>();
 
   useEffect(() => {
-    const fetchData = async (productId: number) => {
-      const url = `${PRODUCT_INFO_COMMENTS_URL}${productId}${EXT_TYPE}`;
-      const res = await getJSONData(url);
-      const result: ProductComment[] = res.data || [];
-      setData([...result, ...commentStorage.get(productId)]);
-    };
-    fetchData(productId);
+    setData([...comments, ...commentStorage.get(productId)]);
   }, [productId]);
 
   const date = () => {
