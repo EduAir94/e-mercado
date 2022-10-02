@@ -22,10 +22,8 @@ function ProductInfo() {
         const result: ProductFull = res.data;
         if (result) {
           return new Promise((resolve) => {
-            setTimeout(() => {
-              setData(result);
-              resolve(true);
-            }, 5000);
+            setData(result);
+            resolve(true);
           });
         }
       };
