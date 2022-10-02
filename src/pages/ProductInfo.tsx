@@ -21,10 +21,7 @@ function ProductInfo() {
         const res = await getJSONData(url, true);
         const result: ProductFull = res.data;
         if (result) {
-          return new Promise((resolve) => {
-            setData(result);
-            resolve(true);
-          });
+          setData(result);
         }
       };
       // Set Comments.
