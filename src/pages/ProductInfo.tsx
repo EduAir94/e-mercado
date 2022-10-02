@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import Carrousel from '../components/ProductInfo/Carrousel';
 import Comments from '../components/ProductInfo/Comments';
 import RelatedProduct from '../components/ProductInfo/RelatedProduct';
 import { EXT_TYPE, PRODUCT_INFO_COMMENTS_URL, PRODUCT_INFO_URL } from '../services/constants';
@@ -7,9 +8,11 @@ import { getJSONData, hideSpinner, showSpinner } from '../services/init';
 import { ProductComment, ProductFull } from '../types';
 
 function ProductInfo() {
+  const carrousel = useRef();
   const { prodID } = useParams();
   const [data, setData] = useState<ProductFull>();
   const [comments, setComments] = useState<ProductComment[]>([]);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     const fetchData = async (productId: number) => {
@@ -59,10 +62,22 @@ function ProductInfo() {
 
   if (!data) return <></>;
 
+  const selectImage = (index: number) => {
+    if (carrousel.current) {
+      (carrousel.current as any).changeImage(index);
+    }
+  };
+
   const images = () => {
     return data.images.map((image, index) => (
-      <div key={index} className="col-12 col-md-6 col-lg-3">
-        <img alt="product_image" src={image} className="img-thumbnail" />
+      <div role="button" key={index} className={'col-3'} onClick={() => selectImage(index)}>
+        <img
+          alt="product_image"
+          src={image}
+          className={
+            'img-thumbnail' + (index === activeIndex ? ' border border-primary border-4' : '')
+          }
+        />
       </div>
     ));
   };
@@ -72,7 +87,19 @@ function ProductInfo() {
     { label: 'Descripción', value: data.description },
     { label: 'Categoría', value: data.category },
     { label: 'Cantidad de vendidos', value: data.soldCount },
-    { label: 'Imagenes ilustrativas', value: <div className="row mt-2">{images()}</div> },
+    {
+      label: 'Imagenes ilustrativas',
+      value: (
+        <div>
+          <Carrousel
+            setActiveIndex={setActiveIndex}
+            ref={carrousel}
+            images={data.images}
+          ></Carrousel>
+          <div className="row gx-0 gx-md-4 mt-2">{images()}</div>
+        </div>
+      ),
+    },
   ];
 
   const list = () => {
@@ -87,8 +114,6 @@ function ProductInfo() {
       );
     });
   };
-
-  console.log('RENDER DATA', data);
 
   return (
     <main>

@@ -255,3 +255,7 @@ a.custom-card:hover {
 .score_select {
   max-width:250px;
 }
+
+.image-contain {
+  object-fit:contain;
+}
