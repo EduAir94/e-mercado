@@ -60,3 +60,17 @@ export interface ProductComment {
   user: string;
   dateTime: string;
 }
+
+export interface CartObj {
+  user: number;
+  articles: Article[];
+}
+
+export interface Article {
+  id: number;
+  name: string;
+  count: number;
+  unitCost: number;
+  currency: string;
+  image: string;
+}

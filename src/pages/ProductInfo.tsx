@@ -1,13 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import Carrousel from '../components/ProductInfo/Carrousel';
 import Comments from '../components/ProductInfo/Comments';
 import RelatedProduct from '../components/ProductInfo/RelatedProduct';
+import { RouteInterface } from '../routes/types';
+import { withRouter } from '../routes/WithRouter';
 import { EXT_TYPE, PRODUCT_INFO_COMMENTS_URL, PRODUCT_INFO_URL } from '../services/constants';
 import { getJSONData, hideSpinner, showSpinner } from '../services/init';
-import { ProductComment, ProductFull } from '../types';
+import { ProductComment, ProductFull, Article } from '../types';
 
-function ProductInfo() {
+function ProductInfo({ router }: { router: RouteInterface }) {
   const carrousel = useRef();
   const { prodID } = useParams();
   const [data, setData] = useState<ProductFull>();
@@ -85,7 +88,7 @@ function ProductInfo() {
     {
       label: 'Imagenes ilustrativas',
       value: (
-        <div>
+        <div className="mt-2">
           <Carrousel
             setActiveIndex={setActiveIndex}
             ref={carrousel}
@@ -110,11 +113,42 @@ function ProductInfo() {
     });
   };
 
+  const comprar = () => {
+    let cart: Article[] = JSON.parse(localStorage.getItem('cart') || '[]');
+    let hasElement = false;
+    if (cart.length) {
+      cart = cart.map((el) => {
+        if (el.id === data.id) {
+          hasElement = true;
+          el.count++;
+        }
+        return el;
+      });
+    }
+    if (!hasElement) {
+      cart.push({
+        id: data.id,
+        name: data.name,
+        count: 1,
+        unitCost: data.cost,
+        currency: data.currency,
+        image: data.images[0],
+      });
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    router.navigate('/cart');
+  };
+
   return (
     <main>
       <div className="container">
-        <div className="pt-4">
-          <h2>{data.name}</h2>
+        <div className="d-flex justify-content-between w-100 align-items-center pt-4">
+          <div>
+            <h2>{data.name}</h2>
+          </div>
+          <Button onClick={comprar} variant="success">
+            Comprar
+          </Button>
         </div>
         <hr />
         <div className="product_info_content">
@@ -143,4 +177,4 @@ function ProductInfo() {
   );
 }
 
-export default ProductInfo;
+export default withRouter(ProductInfo);
