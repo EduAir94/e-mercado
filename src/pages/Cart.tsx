@@ -14,7 +14,6 @@ function Cart() {
         const url = `${CART_INFO_URL}${userId}${EXT_TYPE}`;
         const res = await getJSONData(url, true);
         const result: CartObj = res.data;
-        console.log('RESULT', result);
         const cart: Article[] = JSON.parse(localStorage.getItem('cart') || '[]');
         if (cart) result.articles.push(...cart);
         if (result) {
