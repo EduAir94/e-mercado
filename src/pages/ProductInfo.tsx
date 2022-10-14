@@ -1,14 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import { Button } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Carrousel from '../components/ProductInfo/Carrousel';
 import Comments from '../components/ProductInfo/Comments';
 import RelatedProduct from '../components/ProductInfo/RelatedProduct';
 import { RouteInterface } from '../routes/types';
 import { withRouter } from '../routes/WithRouter';
-import { EXT_TYPE, PRODUCT_INFO_COMMENTS_URL, PRODUCT_INFO_URL } from '../services/constants';
+import {
+  EXT_TYPE,
+  PRODUCT_INFO_COMMENTS_URL,
+  PRODUCT_INFO_URL,
+  CATEGORIES_URL,
+} from '../services/constants';
 import { getJSONData, hideSpinner, showSpinner } from '../services/init';
-import { ProductComment, ProductFull, Article } from '../types';
+import { ProductComment, ProductFull, Article, Category } from '../types';
 
 function ProductInfo({ router }: { router: RouteInterface }) {
   const carrousel = useRef();
@@ -16,6 +21,7 @@ function ProductInfo({ router }: { router: RouteInterface }) {
   const [data, setData] = useState<ProductFull>();
   const [comments, setComments] = useState<ProductComment[]>([]);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [catID, setCatID] = useState(0);
 
   useEffect(() => {
     const fetchData = async (productId: number) => {
@@ -26,6 +32,10 @@ function ProductInfo({ router }: { router: RouteInterface }) {
         if (result) {
           setData(result);
         }
+        const res_categories = await getJSONData(CATEGORIES_URL);
+        const categories: Category[] = res_categories.data;
+        const catID = categories.find((el) => el.name === result.category)?.id as number;
+        setCatID(catID);
       };
       // Set Comments.
       const set_comments = async () => {
@@ -152,6 +162,14 @@ function ProductInfo({ router }: { router: RouteInterface }) {
         </div>
         <hr />
         <div className="product_info_content">
+          <div className="d-flex justify-content-end align-content-center">
+            {catID && (
+              <Link className="no_link" to={'/products/' + catID}>
+                <i className="fa fa-arrow-left me-2"></i>
+                <span>Volver al listado</span>
+              </Link>
+            )}
+          </div>
           <ul className="list-unstyled">{list()}</ul>
         </div>
         <div className="product_comments">
