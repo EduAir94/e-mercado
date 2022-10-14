@@ -259,3 +259,25 @@ a.custom-card:hover {
 .image-contain {
   object-fit:contain;
 }
+
+.cart_table thead tr > th:nth-child(4) {
+  width:160px;
+}
+
+.cart_table thead tr > th:nth-child(1) {
+  width:120px;
+}
+
+.cart_table thead tr > th:nth-child(1) img {
+  width:8px;
+  height:auto;
+}
+
+.cart_table thead tr > th:last-child {
+  width:200px;
+}
+
+.no_link {
+  color:black;
+  text-decoration:none;
+}
