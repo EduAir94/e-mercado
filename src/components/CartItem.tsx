@@ -20,9 +20,7 @@ const CartItem = (item: { article: Article; erase: any; update_cart: any }) => {
           {el.name}
         </Link>
       </td>
-      <td>
-        {el.currency} {toUSD(el.unitCost, el.currency)}
-      </td>
+      <td>USD {toUSD(el.unitCost, el.currency).toFixed(2)}</td>
       <td>
         <div className="pe-3">
           <Form.Control
@@ -44,9 +42,7 @@ const CartItem = (item: { article: Article; erase: any; update_cart: any }) => {
         </div>
       </td>
       <td>
-        <b>
-          {el.currency} {toUSD(total, el.currency)}
-        </b>
+        <b>USD {toUSD(total, el.currency).toFixed(2)}</b>
       </td>
       <td>
         <Button onClick={() => erase(el.id)} variant="outline-danger">

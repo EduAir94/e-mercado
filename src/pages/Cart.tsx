@@ -7,7 +7,10 @@ import { hideSpinner, showSpinner, toUSD } from '../services/init';
 import { CartObj, Article } from '../types';
 
 function Cart() {
-  const [data, setData] = useState<CartObj | null>(null);
+  const [data, setData] = useState<CartObj | null>({
+    user: 0,
+    articles: [],
+  });
   const [shipping, setShipping] = useState<string>('');
   const [validate, setValidate] = useState<boolean>(false);
   const [validPaymentmethod, setValidPaymentMethod] = useState<boolean>(false);
@@ -83,13 +86,13 @@ function Cart() {
     const form = e.target;
     e.preventDefault();
     form.classList.add('was-validated');
-    const payment_method_form = document.getElementById('form_payment_method');
-    console.log('PAYMENT METHOD FORM', payment_method_form);
     setValidate(true);
-    if (!form.checkValidity() || !validPaymentmethod) {
+    const has_articles = data && data.articles.length;
+    if (!form.checkValidity() || !validPaymentmethod || !has_articles) {
       e.stopPropagation();
       return;
     }
+    // Form is valid and payment method information is valid.
     setShowSuccess(true);
     setTimeout(() => {
       setShowSuccess(false);
@@ -127,11 +130,16 @@ function Cart() {
               </Table>
             )}
           </div>
+          {data && !data.articles.length && (
+            <div className={'invalid-feedback' + (validate ? '  d-block' : '')}>
+              No se han agregado artículos al carrito
+            </div>
+          )}
         </div>
         <Form onSubmit={(c) => formSubmit(c)} noValidate={true} className="needs-validation">
           <div className="cart_shipping_option mb-3">
             <h3 className="mb-3">Tipo de envío</h3>
-            <div>
+            <Form.Group className="mb-3">
               <Form.Check
                 required
                 name="shipping_type"
@@ -159,7 +167,10 @@ function Cart() {
                 id="standard"
                 value="standard"
               />
-            </div>
+              <div className={'invalid-feedback mt-2' + (validate && !shipping ? '  d-block' : '')}>
+                Debe seleccionar un tipo de envío
+              </div>
+            </Form.Group>
           </div>
           <div className="cart_shipping_address mb-3">
             <h3 className="mb-3">Dirección de envío</h3>

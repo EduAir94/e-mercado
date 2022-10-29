@@ -48,7 +48,7 @@ function PaymentMethod({
             Seleccionar
           </a>
         </p>
-        <div className={'invalid-feedback mb-3' + (validate && !valid ? ' d-block' : '')}>
+        <div className={'invalid-feedback mb-3' + (validate && !valid ? '  d-block' : '')}>
           Debe seleccionar una forma de pago
         </div>
       </div>
