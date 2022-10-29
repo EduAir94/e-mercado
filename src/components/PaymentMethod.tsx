@@ -3,7 +3,15 @@ import { Col, Form, Row } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-function PaymentMethod({ validate, isValid }: { validate: boolean; isValid: any }) {
+function PaymentMethod({
+  validate,
+  setValid,
+  valid,
+}: {
+  validate: boolean;
+  setValid: any;
+  valid: any;
+}) {
   const [show, setShow] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState('');
   const [form, setForm] = useState({
@@ -13,7 +21,14 @@ function PaymentMethod({ validate, isValid }: { validate: boolean; isValid: any 
     account_number: '',
   });
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+    const form = document.getElementById('form_payment_method');
+    if (form) {
+      const isValid = (form as any).checkValidity();
+      setValid(isValid);
+    }
+    setShow(false);
+  };
   const handleShow = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
     setShow(true);
@@ -33,7 +48,9 @@ function PaymentMethod({ validate, isValid }: { validate: boolean; isValid: any 
             Seleccionar
           </a>
         </p>
-        <div className="invalid-feedback">Debe seleccionar una forma de pago</div>
+        <div className={'invalid-feedback mb-3' + (validate && !valid ? ' d-block' : '')}>
+          Debe seleccionar una forma de pago
+        </div>
       </div>
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button, Col, Form, ListGroup, Row, Table } from 'react-bootstrap';
 import CartItem from '../components/CartItem';
 import PaymentMethod from '../components/PaymentMethod';
+import PaymentSuccess from '../components/PaymentSuccess';
 import { hideSpinner, showSpinner, toUSD } from '../services/init';
 import { CartObj, Article } from '../types';
 
@@ -9,6 +10,8 @@ function Cart() {
   const [data, setData] = useState<CartObj | null>(null);
   const [shipping, setShipping] = useState<string>('');
   const [validate, setValidate] = useState<boolean>(false);
+  const [validPaymentmethod, setValidPaymentMethod] = useState<boolean>(false);
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -83,10 +86,14 @@ function Cart() {
     const payment_method_form = document.getElementById('form_payment_method');
     console.log('PAYMENT METHOD FORM', payment_method_form);
     setValidate(true);
-    if (!form.checkValidity()) {
+    if (!form.checkValidity() || !validPaymentmethod) {
       e.stopPropagation();
       return;
     }
+    setShowSuccess(true);
+    setTimeout(() => {
+      setShowSuccess(false);
+    }, 2000);
   };
 
   return (
@@ -226,12 +233,17 @@ function Cart() {
           <hr className="my-5" />
           <div>
             <h3 className="mb-0">Forma de pago</h3>
-            <PaymentMethod validate={validate}></PaymentMethod>
+            <PaymentMethod
+              setValid={setValidPaymentMethod}
+              validate={validate}
+              valid={validPaymentmethod}
+            ></PaymentMethod>
           </div>
           <div className="mb-5">
             <Button type="submit" variant="primary">
               Finalizar Compra
             </Button>
+            <PaymentSuccess show={showSuccess}></PaymentSuccess>
           </div>
         </Form>
       </div>

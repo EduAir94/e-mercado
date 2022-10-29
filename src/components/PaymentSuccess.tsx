@@ -1,11 +1,12 @@
+import { useState } from 'react';
 import Alert from 'react-bootstrap/Alert';
 
-function PaymentSuccessAlert() {
+function PaymentSuccess({ show }: { show: boolean }) {
   return (
-    <Alert variant="success">
-      <Alert.Heading>¡Has Comprado con éxito!</Alert.Heading>
+    <Alert show={show} className="payment_success_alert" variant="success">
+      <p className="my-2">¡Has Comprado con éxito!</p>
     </Alert>
   );
 }
 
-export default PaymentSuccessAlert;
+export default PaymentSuccess;
