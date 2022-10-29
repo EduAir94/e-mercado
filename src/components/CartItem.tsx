@@ -1,21 +1,12 @@
-import { useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import { toUSD } from '../services/init';
 import { Article } from '../types';
 
-const CartItem = (item: { article: Article }) => {
-  const update_cart = (item: Article) => {
-    const cart: Article[] = JSON.parse(localStorage.getItem('cart') || '[]');
-    const new_cart = cart.map((el) => {
-      if (el.id === item.id) {
-        el.count = item.count;
-      }
-      return el;
-    });
-    localStorage.setItem('cart', JSON.stringify(new_cart));
-  };
-
-  const [el, setEl] = useState<Article>(item.article);
+const CartItem = (item: { article: Article; erase: any; update_cart: any }) => {
+  const erase = item.erase;
+  const update_cart = item.update_cart;
+  const el = item.article;
   const total = el.unitCost * el.count;
   return (
     <tr key={el.id}>
@@ -30,7 +21,7 @@ const CartItem = (item: { article: Article }) => {
         </Link>
       </td>
       <td>
-        {el.currency} {el.unitCost}
+        {el.currency} {toUSD(el.unitCost, el.currency)}
       </td>
       <td>
         <div className="pe-3">
@@ -43,9 +34,7 @@ const CartItem = (item: { article: Article }) => {
                 c.target.value = '1';
                 val = 1;
               }
-              const new_el = { ...el, count: val };
-              update_cart(new_el);
-              setEl(new_el);
+              update_cart(el.id, val);
             }}
             defaultValue={el.count}
             as="input"
@@ -56,8 +45,13 @@ const CartItem = (item: { article: Article }) => {
       </td>
       <td>
         <b>
-          {el.currency} {total}
+          {el.currency} {toUSD(total, el.currency)}
         </b>
+      </td>
+      <td>
+        <Button onClick={() => erase(el.id)} variant="outline-danger">
+          <i className="fa fa-trash" aria-hidden="true"></i>
+        </Button>
       </td>
     </tr>
   );

@@ -273,11 +273,15 @@ a.custom-card:hover {
   height:auto;
 }
 
-.cart_table thead tr > th:last-child {
+.cart_table thead tr > .subtotal_column {
   width:200px;
 }
 
 .no_link {
   color:black;
   text-decoration:none;
+}
+
+.cart_table thead tr > .erase_column  {
+  width:60px;
 }

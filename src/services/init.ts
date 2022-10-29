@@ -39,4 +39,10 @@ const getJSONData = (url: string, disable_spinner = false) => {
     });
 };
 
-export { getJSONData, showSpinner, hideSpinner };
+const toUSD = (price: number, currency: string) => {
+  if (currency === 'USD') return price;
+  if (currency === 'UYU') return price * 0.024; // Convert UYU to USD
+  throw new Error('Invalid currency');
+};
+
+export { getJSONData, showSpinner, hideSpinner, toUSD };
