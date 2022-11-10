@@ -5,6 +5,12 @@ import AuthService from '../services/authService';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Navbar from 'react-bootstrap/Navbar';
 import SearchBar from './SearchBar';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state: any) => ({
+  user: state.user,
+});
 
 function NavBar({ router }: { router: RouteInterface }) {
   const logout = () => {
@@ -60,4 +66,4 @@ function NavBar({ router }: { router: RouteInterface }) {
   );
 }
 
-export default withRouter(NavBar);
+export default connect(mapStateToProps)(withRouter(NavBar));

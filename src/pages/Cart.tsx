@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Button, Col, Form, ListGroup, Row, Table } from 'react-bootstrap';
 import CartItem from '../components/CartItem';
 import PaymentMethod from '../components/PaymentMethod';
-import PaymentSuccess from '../components/PaymentSuccess';
+import AlertBootstrap from '../components/AlertBootstrap';
 import { hideSpinner, showSpinner, toUSD } from '../services/init';
 import { CartObj, Article } from '../types';
 
@@ -185,7 +185,7 @@ function Cart() {
               <Col xs={12} lg={6}>
                 <Form.Group className="mb-3">
                   <Form.Label>Número</Form.Label>
-                  <Form.Control required name="numbr" type="text" defaultValue="" />
+                  <Form.Control required name="number" type="text" defaultValue="" />
                   <div className="invalid-feedback">Ingresa una número</div>
                 </Form.Group>
               </Col>
@@ -254,7 +254,11 @@ function Cart() {
             <Button type="submit" variant="primary">
               Finalizar Compra
             </Button>
-            <PaymentSuccess show={showSuccess}></PaymentSuccess>
+            <AlertBootstrap
+              type="success"
+              text="¡Has Comprado con éxito!"
+              show={showSuccess}
+            ></AlertBootstrap>
           </div>
         </Form>
       </div>

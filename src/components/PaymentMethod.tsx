@@ -76,7 +76,7 @@ function PaymentMethod({
                 />
                 <hr />
                 <Row>
-                  <Col xs={6}>
+                  <Col xs={12} lg={6}>
                     <Form.Group className="mb-3" controlId="card_number">
                       <Form.Label className="mb-1">Número de tarjeta</Form.Label>
                       <Form.Control
@@ -90,7 +90,7 @@ function PaymentMethod({
                       />
                     </Form.Group>
                   </Col>
-                  <Col xs={6} lg={4}>
+                  <Col xs={12} lg={4}>
                     <Form.Group className="mb-3" controlId="cvv">
                       <Form.Label className="mb-1">Código de seg.</Form.Label>
                       <Form.Control

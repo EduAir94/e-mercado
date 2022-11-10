@@ -285,3 +285,16 @@ a.custom-card:hover {
 .cart_table thead tr > .erase_column  {
   width:60px;
 }
+
+.profile_image {
+  object-fit:cover;
+  width:100px;
+  height:100px;
+}
+
+@media(max-width:768px) {
+  .profile_image {
+    width:100%;
+    height:auto;
+  }
+}
