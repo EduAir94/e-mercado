@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
 import { Form } from 'react-bootstrap';
 
-export const ImageUpload = () => {
+export const ImageUpload = ({ setPreview }: { setPreview: any }) => {
   const [selectedFile, setSelectedFile] = useState<File | undefined>(undefined);
-  const [preview, setPreview] = useState('');
 
   // create a preview as a side effect, whenever selected file is changed
   useEffect(() => {
@@ -12,11 +11,23 @@ export const ImageUpload = () => {
       return;
     }
 
-    const objectUrl = URL.createObjectURL(selectedFile);
-    setPreview(objectUrl);
+    const reader = new FileReader();
 
-    // free memory when ever this component is unmounted
-    return () => URL.revokeObjectURL(objectUrl);
+    reader.addEventListener(
+      'load',
+      function () {
+        console.log('LISTENER ACTIVATED');
+        // convert image file to base64 string and save to localStorage
+        if (reader.result) {
+          setPreview(reader.result);
+        }
+      },
+      false
+    );
+
+    if (selectedFile) {
+      reader.readAsDataURL(selectedFile);
+    }
   }, [selectedFile]);
 
   const onSelectFile = (e: any) => {

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Form, Row, Col, ListGroup, Button } from 'react-bootstrap';
+import { Form, Row, Col, Button } from 'react-bootstrap';
 import AuthService, { User } from '../services/authService';
 import AlertBootstrap from '../components/AlertBootstrap';
 import { ImageUpload } from '../components/ImageUpload';
@@ -7,6 +7,13 @@ import { ImageUpload } from '../components/ImageUpload';
 function MyProfile() {
   const [user, setUser] = useState<User>(AuthService.user());
   const [showSuccess, setShowSuccess] = useState<boolean>(false);
+
+  const setPreview = (str: string) => {
+    console.log('SET PREVIEW', str);
+    if (str) {
+      setUser({ ...user, profile_image: str });
+    }
+  };
 
   const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     console.log('FORM SUBMIT');
@@ -23,7 +30,7 @@ function MyProfile() {
       second_name: values.get('second_name') as string,
       first_surname: values.get('first_surname') as string,
       second_surname: values.get('second_surname') as string,
-      profile_image: values.get('profile_image') as string,
+      profile_image: user.profile_image,
       email: values.get('email') as string,
       phone: values.get('phone') as string,
     };
@@ -33,6 +40,7 @@ function MyProfile() {
       setShowSuccess(false);
     }, 3000);
   };
+
   // Usar cloudinary para subir la imagen.
   return (
     <main className="pb-5">
@@ -44,7 +52,7 @@ function MyProfile() {
             </Col>
             <Col xs={12} lg={6}>
               <div className="d-flex justify-content-md-end">
-                <img className="profile_image border p-2 " src="/img/img_perfil.png"></img>
+                <img className="profile_image border p-2 " src={user.profile_image}></img>
               </div>
             </Col>
           </Row>
@@ -114,7 +122,7 @@ function MyProfile() {
               <Col xs={12} lg={6}>
                 <Form.Group className="mb-3">
                   <Form.Label>Imagen de Perfil</Form.Label>
-                  <ImageUpload></ImageUpload>
+                  <ImageUpload setPreview={setPreview}></ImageUpload>
                   <div className="invalid-feedback">Ingresa una imagen de perfil</div>
                 </Form.Group>
               </Col>

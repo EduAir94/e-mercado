@@ -37,11 +37,17 @@ const AuthService = {
   user(): User {
     const user = store.getState().user;
     const profiles = JSON.parse(localStorage.getItem('profiles') as string);
-    let user_profile = {};
+    let user_profile: any = {};
     if (profiles && profiles[user.email]) {
       user_profile = profiles[user.email];
     }
-    return { ...user, ...user_profile };
+    console.log('TYPEOF', typeof user_profile.profile_image);
+    if (!user_profile.profile_image || typeof user_profile.profile_image === 'object') {
+      user_profile.profile_image = '/img/img_perfil.png';
+    }
+    const user_f = { ...user, ...user_profile };
+    console.log('USER F', user_f);
+    return user_f;
   },
   login({ email }: { email: string }) {
     store.dispatch({
